@@ -1,18 +1,18 @@
 class Ring {
   /**
-  * crée un Anneau en fixant sa position initiale et son rayon
+  * Create a Ring object with initial position and radius fixed
   * @param {HTMLCanvasElement} canvas
-  * @param {number} xCenter abscisse du centre de l'anneau
-  * @param {number} yCenter ordonnée du centre de l'anneau
-  * @param {number} radius rayon initial de l'anneau
+  * @param {number} xCenter ring's abscissa center
+  * @param {number} yCenter ring's ordinate center
+  * @param {number} radius ring's initial radius
   * @returns {Ring}
   */
   constructor (param) {
     // attributes
     this.canvas = param.canvas;
-    this.radius = param.radius;
-    this.y = param.yCenter;
-    this.x = param.xCenter;
+    this.radius = param.radius || 5;
+    this.y = param.yCenter || 0;
+    this.x = param.xCenter || 0;
   }
 
   /**
@@ -25,17 +25,16 @@ class Ring {
     this.y = center.y;
   }
 
+  /**
+  * Getter of ring coordinates
+  * @return {x, y} structure with the x-abscissa and the y-ordinate
+  */
   get center () {
     return {
       x: this.x,
       y: this.y
     };
   }
-
-  /*
-    get radius () {
-    return this.radius;
-  } */
 
   /**
   * Method to draw a ring
@@ -52,5 +51,12 @@ class Ring {
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fill();
+  }
+
+  generate () {
+    this.center = {
+      x: Math.floor(Math.random() * (this.canvas.width - 2 * this.radius)) + this.radius,
+      y: Math.floor(Math.random() * (this.canvas.height - 2 * this.radius)) + this.radius
+    };
   }
 }

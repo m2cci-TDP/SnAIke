@@ -16,15 +16,43 @@ class RingHead extends Ring {
   }
 
   moveOnCourse () {
-    this.center = {
-      x: this.direction.x,
-      y: this.direction.y
-    };
+    if (this.testCourseX()) {
+      if (this.direction.x <= 0) {
+        this.center = {
+          x: this.canvas.width - this.radius,
+          y: this.direction.y
+        };
+      } else {
+        this.center = {
+          x: 0 + this.radius,
+          y: this.direction.y
+        };
+      }
+    } else if (this.testCourseY()) {
+      if (this.direction.y <= 0) {
+        this.center = {
+          x: this.direction.x,
+          y: this.canvas.height - this.radius
+        };
+      } else {
+        this.center = {
+          x: this.direction.x,
+          y: 0 + this.radius
+        };
+      }
+    } else {
+      this.center = {
+        x: this.direction.x,
+        y: this.direction.y
+      };
+    }
   }
 
-  testCourse () {
-    return this.direction.x > this.canvas.width || this.direction.x < 0 ||
-      this.direction.y > this.canvas.height || this.direction.y < 0;
+  testCourseX () {
+    return this.direction.x > this.canvas.width || this.direction.x < 0;
+  }
+  testCourseY () {
+    return this.direction.y > this.canvas.height || this.direction.y < 0;
   }
 
   /**
